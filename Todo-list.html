@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <style>
+        body{
+            background-color: #e7eaf6;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: 100;
+        }
+        #container{
+            margin: 200px auto;
+            width: 400px;
+            height:fit-content;
+            border: 2px solid black;
+            text-align: center;
+            background-color:#a2a8d3;
+            
+        }
+        #container h1{
+            color: #38598b;
+            cursor: pointer;
+        }
+        #container input{
+            width: 250px;
+            height: 30px;
+            border: 3px solid white ;
+            border-radius: 18px;
+            margin: 20px;
+            text-align: center;
+            font-size: larger;
+            color: #38598b;
+            font-weight: 100;
+        } #container input:focus{
+            outline: none;
+        }
+        #container button{
+            width: 50px;
+            height: 30px;
+            border-radius: 15px;
+            border: 2px solid #407088;
+            background-color:#407088;
+            color: white;
+            font-size: larger;
+        }
+        #container p{
+            font-size: larger;
+            color: #ffc93c;
+            padding: 10px;
+            margin: 0px 0px  0px 20px;
+            cursor: pointer;
+        }
+     
+     .fa-square-xmark{
+        color: white;
+        cursor: pointer;
+        width: 20px;
+        height: 2;
+        font-size: larger;
+       
+       margin-left: 90px;
+     }
+     footer{
+        display: flex;
+        justify-content: center;
+     }h5{
+        color:black;
+     }
+     .name{
+        color: red;
+     }
+    </style>
+        
+</head>
+<body>
+<section id="container">
+    <div class="header">
+        <h1> To Do List</h1>
+    </div>
+    <div class="inputbox">
+        <input type="text" id="input" >
+        <button id="add">Add</button>
+    </div>
+    <div   id="list">
+     
+    <!--   <span><i class="fa-solid fa-square-xmark"></i></span>
+    -->
+    </div>
+</section>
+<footer>
+    <h5><i class="fa-solid fa-copyright"></i>  This Website created by <span class="name">VENKADESH</span> 2024</h5>
+</footer>
+<script>
+   
+   let list = document.getElementById("list");
+   let input = document.getElementById("input");
+   let add = document.getElementById("add");
+let todos=[];
+window.onload=()=>{
+ 
+    todos=JSON.parse(localStorage.getItem("todos")) || []
+    todos.forEach( todo=>addtodo(todo));
+} 
+
+add.addEventListener("click",()=>{
+    if(input.value===''){
+        alert("Pleases enter a vaild contents")
+    }
+    else{
+    todos.push(input.value);
+    addtodo(input.value)
+      console.log(todos)
+    localStorage.setItem("todos",JSON.stringify(todos))
+    input.value="";
+    }
+
+})
+function addtodo(todo){
+    let p=document.createElement("p")
+    p.innerText=todo;
+    list.appendChild(p);
+    let i=document.createElement("i");
+    i.className="fa-solid fa-square-xmark";
+    
+    p.appendChild(i);
+  
+  /*  p.addEventListener("click",()=>{
+        list.removeChild(p);
+        remove(todo);
+    *///})
+  // 
+ i.addEventListener("click",()=>{
+    list.removeChild(p);
+    remove(todo);
+ })
+
+}
+
+
+function remove(todo){
+    let index=todos.indexOf(todo);
+   if(index>-1){
+    todos.splice(index,1);
+   }    
+    localStorage.setItem("todos",JSON.stringify(todos))
+}
+</script>
+</body>
+</html>
